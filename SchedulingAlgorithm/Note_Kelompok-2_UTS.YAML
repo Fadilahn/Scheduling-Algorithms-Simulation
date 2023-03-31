@@ -1,0 +1,203 @@
+Simulation Scheduling Algorithms - OS (UTS)
+
+# Konsep
+==============================================
+Scheduling Algorithm:
+1. FCFS (First Come First Served)
+2. SJF (Shortest Job First)
+3. SRT (Shortest Remaining Time)
+4. Priority Scheduling
+5. RR (Round Robin)
+
+Input:
+1. Process name: string
+2. Burst time: int
+3. arrive time: int
+4. priority: int (Priority Scheduling)
+5. quantum: int (RR)
+
+fitur:
+in the table:
+1. start time: waktu mulai ketika dieksekusi oleh CPU
+2. return/finish time: waktu selesai eksekusi
+3. turnaround time = finish time - arrive time
+4. waiting time = turnaround time - burst time
+5. response time = start time - Arrival time 
+
+off table:
+6. total time = waktu terakhir execute
+7. throughput = total time / n process
+8. average start time = sum start time / n process
+9. average turnaround time = sum turnaround time / n process
+10. average waiting time = sum waiting time / n process 
+11. average response time = sum response time / n process
+12. gantt chart
+ex:
+ ________ __ __________ ______________ ______ ____
+|___P1___|P2|____P0____|______P4______|__P3__|_P5_|
+0        4  5         10             17     20   22
+
+Simulation:
+1. input data
+2. process algorithm, choice (5 scheduling algorithm)
+3. output fitur, tiap algoritma menampilkan informasi output berupa fitur in table, fitur off table, dan gantt chart
+note: bahasa python 
+
+# Test Case
+==============================================
+# input test case dengan data file .txt
+# contoh format data 
+#   jumlah_data {1}
+#   nama_proses burst_time arrive_time priority {jumlah data}
+#   quantum {1}
+
+""" data.txt
+2
+P0 3 5 2
+P1 0 4 3
+3
+"""
+
+6
+P0 3 5 2
+P1 0 4 3
+P2 1 1 2
+P3 5 3 4
+P4 3 7 3
+P5 8 2 1
+2
+
+
+# Design
+==============================================
+Process
+- name: string
+- burst_time: int
+- arrive_time: int
+- priority: int
+- start_time: int
+- finish_time: int
+- turnaround_time: int
+- waiting_time: int
+- response_time: int
+- burst_time_remaining: int
+- isQueued: Boolean
+- isCompleted: Boolean
++ *setter(): for all atribute
++ *getter(): for all atribute
++ getDict()
+
+SchedulingAlgorithm
+- processes: list of object
+- ready_queues: list of object
+- remaining_process: int
+- completed_processes: list of object
+- current_time: int
+- n: int
+- run_time: int
+- temp_process: object
+- gantt_chart: list of object
+- delay: int
++ *getter(): for all atribute
++ setReadyQueues()
++ getRunningProcess()
++ setCompletedProcess()
++ checkDelay()
++ executeNonPreemptive()
++ executePreemptive()
+
+FCFSAlgorithm
++ run()
++ printGanttChart()
+
+SJFAlgorithm
++ getNextProcess()
++ run()
++ printGanttChart()
+
+SRTAlgorithm
+- tempProcess: Object
+- tempTime: int
+- ganttChartInfo: list of Object
++ calculate()
++ run()
++ printGanttChart()
+
+PriorityAlgorithm
+- tempProcess: Object
+- tempTime: int
+- ganttChartInfo: list of Object
++ run()
++ printGanttChart()
+
+RRAlgorithm
+- quantum: int
+- queue: list of object
+- exeProgramsCount: int
+- ganttChartInfo: list of object
++ cekProsesBaru()
++ updateQueue()
++ run()
++ printGanttChart()
+
+# Inheritance and Composite
+==============================================
+SchedulingAlgorithms has a Process
+FCFS is a SchedulingAlgorithms
+SJF is a SchedulingAlgorithms
+SRT is a SchedulingAlgorithms
+Priority is a SchedulingAlgorithms
+PriorityPreemptive is a SchedulingAlgorithms
+RR is a SchedulingAlgorithms
+
+
+# COPY
+==============================================
+Scheduling Algorithm:
+1. FCFS (First Come First Served)
+2. SJF (Shortest Job First)
+3. SRT (Shortest Remaining Time)
+4. Priority Scheduling
+5. RR (Round Robin)
+
+Input:
+1. Process name
+2. Burst time
+3. arrive time
+4. priority
+5. quantum
+
+fitur:
+in the table:
+1. start time
+2. response/finish time
+4. turnaround time = finish time - arrive time
+3. waiting time = turnaround time - burst time
+
+off table:
+5. total time = sum burst time
+6. throughput = n process / total time
+7. average start time = sum start time / n process
+8. average turnaround time = sum turnaround time / n process
+9. average waiting time = sum waiting time / n process 
+
+
+# Simulation
+==============================================
+
+CPU 
+
+arrive
+- start -
+burst
+- finish -
+
+delay - CPU start =  waiting arrive time
+arrive - start = waiting time
+arrive - finish = turnaround time
+start - finish = Burst time
+start - finish + delay = delay time
+delay 
+
+
+queue:-            | process:-           | terminate:-           | complete:-           
